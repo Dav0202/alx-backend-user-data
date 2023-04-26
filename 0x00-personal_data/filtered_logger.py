@@ -48,6 +48,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class """
+
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
