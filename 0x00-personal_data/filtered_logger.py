@@ -33,6 +33,8 @@ def filter_datum(fields: List[str], redaction: str,
     logger.addHandler(stream_handler)
 
     return logger
+  
+  
 
   
   def get_db() -> mysql.connector.connection.MySQLConnection:
@@ -49,7 +51,7 @@ def filter_datum(fields: List[str], redaction: str,
     return conn
 
 
-  class RedactingFormatter(logging.Formatter):
+class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
 
