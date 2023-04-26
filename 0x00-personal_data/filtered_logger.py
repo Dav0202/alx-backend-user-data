@@ -21,8 +21,8 @@ def filter_datum(fields: List[str], redaction: str,
                          f'{i}={redaction}{separator}', message)
     return message
 
-  
-  def get_logger() -> logging.Logger:
+
+def get_logger() -> logging.Logger:
     """ Returns a Logger Object """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
@@ -37,7 +37,7 @@ def filter_datum(fields: List[str], redaction: str,
   
 
   
-  def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """ Returns Mysql Connector """
     username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
     password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
@@ -58,9 +58,9 @@ class RedactingFormatter(logging.Formatter):
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
-
+    
     def __init__(self, fields: List[str]):
-      """Constructor"""
+        """Constructor"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
