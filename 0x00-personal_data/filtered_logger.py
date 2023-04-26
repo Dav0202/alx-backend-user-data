@@ -30,7 +30,6 @@ def get_logger() -> logging.Logger:
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     logger.addHandler(stream_handler)
-
     return logger
 
 
@@ -49,14 +48,13 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-    """
+    """ Redacting Formatter class """
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
-    
+
     def __init__(self, fields: List[str]):
-        """Constructor"""
+        """Constructor for class"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -76,13 +74,10 @@ def main():
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
     field_names = [i[0] for i in cursor.description]
-
     logger = get_logger()
-
     for row in cursor:
         str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, field_names))
         logger.info(str_row.strip())
-
     cursor.close()
     db.close()
 
