@@ -27,13 +27,12 @@ def get_logger() -> logging.Logger:
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
-
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     logger.addHandler(stream_handler)
 
     return logger
-  
+
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ Returns Mysql Connector """
@@ -51,8 +50,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
-        """
-
+    """
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
