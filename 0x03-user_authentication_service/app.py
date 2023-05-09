@@ -31,3 +31,24 @@ def register_user() -> str:
 
     msg = {"email": email, "message": "user created"}
     return jsonify(msg)
+
+@app.route('/sessions', methods=['POST'])
+def log_in() -> str:
+    """ User login functionality """
+    try:
+        email = request.form['email']
+        password = request.form['password']
+    except KeyError:
+        abort(400)
+
+    if not AUTH.valid_login(email, password):
+        abort(401)
+
+    session_id = AUTH.create_session(email)
+
+    msg = {"email": email, "message": "logged in"}
+    response = jsonify(msg)
+
+    response.set_cookie("session_id", session_id)
+
+    return response
