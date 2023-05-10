@@ -20,22 +20,18 @@ def _generate_uuid() -> str:
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
-    """
+    """Auth class to interact with the authentication database"""
 
     def __init__(self):
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """ User Registration in database
-        """
-
+        """ User Registration in database """
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             hashed_password = _hash_password(password)
             user = self._db.add_user(email, hashed_password)
-
             return user
 
         else:
@@ -75,12 +71,10 @@ class Auth:
         """
         if session_id is None:
             return None
-
         try:
             user = self._db.find_user_by(session_id=session_id)
         except NoResultFound:
             return None
-
         return user
 
     def destroy_session(self, user_id: int) -> None:
@@ -102,9 +96,7 @@ class Auth:
             raise ValueError
 
         reset_token = _generate_uuid()
-
         self._db.update_user(user.id, reset_token=reset_token)
-
         return reset_token
 
     def update_password(self, reset_token: str, password: str) -> None:
