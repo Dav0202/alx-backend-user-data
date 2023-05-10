@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """API Routes for Authentication Service"""
 from auth import Auth
-from flask import (Flask, jsonify,
-                   request, abort,
-                   redirect)
+from flask import (Flask,
+                   redirect,
+                   abort,
+                   request,
+                   jsonify)
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -109,7 +111,7 @@ def reset_password() -> str:
 
 @app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
-  """ Updates User Password with reset token"""
+    """ Updates User Password with reset token"""
     try:
         email = request.form['email']
         reset_token = request.form['reset_token']
