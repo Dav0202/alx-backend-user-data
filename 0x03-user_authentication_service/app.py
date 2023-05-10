@@ -17,6 +17,7 @@ def Base_route() -> str:
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
 
+
 @app.route('/users', methods=['POST'])
 def register_user() -> str:
     """Registers users in DB"""
@@ -33,6 +34,7 @@ def register_user() -> str:
 
     msg = {"email": email, "message": "user created"}
     return jsonify(msg)
+
 
 @app.route('/sessions', methods=['POST'])
 def log_in() -> str:
@@ -55,6 +57,7 @@ def log_in() -> str:
 
     return response
 
+
 @app.route('/sessions', methods=['DELETE'])
 def log_out() -> str:
     """ Finds a user session and logout
@@ -72,6 +75,7 @@ def log_out() -> str:
     AUTH.destroy_session(user.id)
 
     return redirect('/')
+
 
 @app.route('/profile', methods=['GET'])
 def profile() -> str:
@@ -91,6 +95,7 @@ def profile() -> str:
 
     return jsonify(msg), 200
 
+
 @app.route('/reset_password', methods=['POST'])
 def reset_password() -> str:
     """Reset password if user email is valid
@@ -108,6 +113,7 @@ def reset_password() -> str:
     msg = {"email": email, "reset_token": reset_token}
 
     return jsonify(msg), 200
+
 
 @app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
